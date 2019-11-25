@@ -30,13 +30,23 @@ class Solr {
     });
   }
 
-  query(query) {
-    // /beautifulsearch_template/select?q=*:*&fl=id
+  query(q) {
     const params = {
-      query
+      q: "*:*"
     };
 
-    return this.get("/techproducts/query", { params });
+    return this.instance.get(`/${this.core}/select`, { params });
+  }
+
+  createCore(name, instance_dir = "", config_set = "_default") {
+    const params = {
+      action: "CREATE",
+      name: name,
+      instance_dir: instance_dir,
+      configSet: config_set
+    };
+
+    return this.instance.get("/admin/cores", { params });
   }
 
   getStatus() {
@@ -70,6 +80,29 @@ class Solr {
     };
 
     return this.instance.post(`/${this.core}/schema`, params);
+  }
+
+  uploadJson(fileName, fileContent) {
+    const params = {
+      action: "import-json",
+      saveAs: fileName
+    };
+
+    return this.instance.post(`/${this.core}/beautifulsearch`, fileContent, {
+      params
+    });
+  }
+
+  completeImport(fileName, idField) {
+    const params = {
+      action: "import-json",
+      file: fileName,
+      idField
+    };
+
+    return this.instance.post(`/${this.core}/beautifulsearch`, null, {
+      params
+    });
   }
 
   deleteField(name) {
