@@ -32,7 +32,7 @@ class Solr {
 
   query(query) {
     const params = {
-      q: q || "*:*", // q is the query prameter, to select all use *:*
+      q: query || "*:*", // q is the query prameter, to select all use *:*
       // qf: null, // what all fields to query on, + seperated
       // fl: null, // what fields to return in the response, , seperated
     };
