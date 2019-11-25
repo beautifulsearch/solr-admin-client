@@ -30,11 +30,11 @@ class Solr {
     });
   }
 
-  query(query, { }) {
+  query(query) {
     const params = {
       q: q || "*:*", // q is the query prameter, to select all use *:*
-      qf: null, // what all fields to query on, + seperated
-      fl: null, // what fields to return in the response, , seperated
+      // qf: null, // what all fields to query on, + seperated
+      // fl: null, // what fields to return in the response, , seperated
     };
 
     return this.instance.get(`/${this.core}/select`, { params });
